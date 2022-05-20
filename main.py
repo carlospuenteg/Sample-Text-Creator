@@ -46,7 +46,7 @@ def create_texts():
 
         for lines in divSample:
             if (lines != ""):
-                print(code)
+                print(name)
                 toWrite += (translator.translate(lines, dest=code).text + "\n")
 
         f = open("texts_by_name/" + name + ".txt", "a").write(toWrite[:-1])
