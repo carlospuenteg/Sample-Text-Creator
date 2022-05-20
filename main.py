@@ -1,13 +1,17 @@
 from googletrans import Translator
 import os
 import json
+import shutil
 
 def create_texts():
-    # Create folder if it doesn't exist
-    if not os.path.exists("texts_by_name"):
-        os.mkdir("texts_by_name")
-    if not os.path.exists("texts_by_code"):
-        os.mkdir("texts_by_code")
+    # Create folder if it doesn't exist and remove it if it does
+    if os.path.exists("texts_by_name"):
+        shutil.rmtree('texts_by_name/')
+    os.mkdir("texts_by_name")
+
+    if os.path.exists("texts_by_code"):
+        shutil.rmtree('texts_by_code/')
+    os.mkdir("texts_by_code")
         
 
     # Create the translator
