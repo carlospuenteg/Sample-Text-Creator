@@ -12,22 +12,33 @@ sample = open("sample.txt", "r").read()
 sampleArr = sample.splitlines()
 divSample = []
 
-toAppend = ""
 
+
+toAppend = ""
 # For each line in the sample
 for line in sampleArr:
 
-    if len(toAppend) + len(line) + 1 < 5000: # If the appended text would be < 5000 characters
+    # If the appended text would be < 5000 characters
+    if len(toAppend) + len(line) + 1 < 5000:
         toAppend += (line + "\n")
     else:
         divSample.append(toAppend)
         toAppend = (line + "\n")
 
+# Add the last text to append (without the \n)
+divSample.append(toAppend)
 
+
+
+# Write the translation to the files
 for lang in languages.keys():
+    toWrite = ""
+
     for lines in divSample:
         if (lines != ""):
             print(lang)
-            f = open(lang + ".txt", "a")
-            f.write(translator.translate(lines, dest=lang).text + "\n")
-            f.close()
+            toWrite += (translator.translate(lines, dest=lang).text + "\n")
+
+    f = open(lang + ".txt", "a")
+    f.write(toWrite[:-1])
+    f.close()
