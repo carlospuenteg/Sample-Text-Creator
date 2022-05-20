@@ -10,15 +10,22 @@ languages = json.load(open('languages.json'))
 # Import sample text
 sample = open("sample.txt", "r").read()
 sampleArr = sample.splitlines()
-
 divSample = []
 
-print(sampleArr)
+toAppend = ""
+txtLen = 0
+for i in range(len(sampleArr)):
+    txt = sampleArr[i] + "\n"
 
-for i in range(0,len(sampleArr),20):
-    divSample.append("\n".join(sampleArr[i:i+10]))
+    if txtLen + len(txt) < 5000:
+        toAppend += txt
+        txtLen += len(txt)
+    else:
+        divSample.append(toAppend)
+        toAppend = txt
+        txtLen = len(txt)
 
-
+"""
 for lang in languages.keys():
     for lines in divSample:
         if (lines != ""):
@@ -26,3 +33,4 @@ for lang in languages.keys():
             f = open(lang + ".txt", "a")
             f.write(translator.translate(lines, dest=lang).text + "\n")
             f.close()
+"""
