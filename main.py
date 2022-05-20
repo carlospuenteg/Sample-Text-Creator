@@ -4,8 +4,10 @@ import json
 
 def create_texts():
     # Create folder if it doesn't exist
-    if not os.path.exists("texts"):
-        os.mkdir("texts")
+    if not os.path.exists("texts_by_name"):
+        os.mkdir("texts_by_name")
+    if not os.path.exists("texts_by_code"):
+        os.mkdir("texts_by_code")
         
 
     # Create the translator
@@ -39,17 +41,15 @@ def create_texts():
 
 
     # Write the translation to the files
-    for lang, name in languages.items():
+    for code, name in languages.items():
         toWrite = ""
 
         for lines in divSample:
             if (lines != ""):
-                print(lang)
-                toWrite += (translator.translate(lines, dest=lang).text + "\n")
+                print(code)
+                toWrite += (translator.translate(lines, dest=code).text + "\n")
 
-        f = open("texts/" + name + ".txt", "a")
-        f.write(toWrite[:-1])
-        f.close()
-
+        f = open("texts_by_name/" + name + ".txt", "a").write(toWrite[:-1])
+        f = open("texts_by_code/" + code + ".txt", "a").write(toWrite[:-1])
 
 create_texts()
