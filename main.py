@@ -5,10 +5,16 @@ import json
 translator = Translator()
 
 # Import languages
-languages = json.load(open('data.json'))
+languages = json.load(open('languages.json'))
 
 # Import sample text
 sample = open("sample.txt", "r").read()
+sampleArr = sample.splitlines()
 
-for lang in languages.items():
-    f = open(lang + ".txt", "a").write(translator.translate(sample, dest=lang))
+
+for lang in languages.keys():
+    for line in sampleArr:
+        print(lang)
+        f = open(lang + ".txt", "a")
+        f.write(translator.translate(sample, dest=lang).text)
+        f.close()
