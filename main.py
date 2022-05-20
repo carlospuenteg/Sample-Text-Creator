@@ -13,19 +13,17 @@ sampleArr = sample.splitlines()
 divSample = []
 
 toAppend = ""
-txtLen = 0
-for i in range(len(sampleArr)):
-    txt = sampleArr[i] + "\n"
 
-    if txtLen + len(txt) < 5000:
-        toAppend += txt
-        txtLen += len(txt)
+# For each line in the sample
+for line in sampleArr:
+
+    if len(toAppend) + len(line) + 1 < 5000: # If the appended text would be < 5000 characters
+        toAppend += (line + "\n")
     else:
         divSample.append(toAppend)
-        toAppend = txt
-        txtLen = len(txt)
+        toAppend = (line + "\n")
 
-"""
+
 for lang in languages.keys():
     for lines in divSample:
         if (lines != ""):
@@ -33,4 +31,3 @@ for lang in languages.keys():
             f = open(lang + ".txt", "a")
             f.write(translator.translate(lines, dest=lang).text + "\n")
             f.close()
-"""
